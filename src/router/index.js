@@ -25,7 +25,7 @@ const router = createRouter({
       path: '/ru/api',
       name: 'ru_api',
       component: ruApiView,
-      props: {locale: 'ru'}
+      // props: {locale: 'ru'}
     },
     {
       path: '/es/api',

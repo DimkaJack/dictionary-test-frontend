@@ -6,12 +6,12 @@ import axios from "axios";
 const host = "http://localhost:8080/api/";
 
 export default {
-  props: ['locale'],
+  // props: ['locale'],
   data() {
     return {
       form: {
         word: '',
-        locale: this.locale,
+        locale: 'en',
       },
       value: '',
       examples: [],
@@ -19,7 +19,7 @@ export default {
   },
   methods : {
     submit() {
-      axios.post(host + this.locale + '/translate', this.form)
+      axios.post(host + 'translate', this.form)
           .then((res) => {
             console.log(res)
             this.value = res.data.value;
@@ -42,6 +42,11 @@ export default {
     <template v-slot:headerslot>Перевод слова</template>
 
     <form v-on:submit.prevent="submit">
+      <select v-model="form.locale">
+        <option value="en">en</option>
+        <option value="ru">ru</option>
+        <option value="es">es</option>
+      </select>
       <input type="text" class="form-input" v-model="form.word" placeholder="Введите слово">
       <button class="ml-1 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" type="submit">Submit</button>
     </form>
