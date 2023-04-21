@@ -13,7 +13,8 @@ export default {
         word: '',
         locale: 'en',
       },
-      value: '',
+      value: false,
+      error: false,
       examples: [],
     }
   },
@@ -21,12 +22,13 @@ export default {
     submit() {
       axios.post(host + 'translate', this.form)
           .then((res) => {
-            console.log(res)
             this.value = res.data.value;
             this.examples = res.data.examples;
+            this.error = false;
           })
           .catch((error) => {
-            console.log(error)
+            this.value = false;
+            this.error = true;
           });
     }
   },
@@ -56,6 +58,10 @@ export default {
       <div v-for="example in examples" :key="example.id">
         <p>Пример использования: {{ example.description }}</p>
       </div>
+    </div>
+
+    <div v-if="error" class="mt-10">
+      <p>Перевод не найден!</p>
     </div>
   </MainLayout>
 </template>
